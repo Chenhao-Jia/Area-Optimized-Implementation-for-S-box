@@ -640,9 +640,10 @@ int main(){
 
 
             //Constraining the algebraic degree of the S-box is 3.
+            fprintf(fp, "ASSERT(BVGT(");
             for (int m = 0; m < bitnum; m++) {
-                fprintf(fp, "ASSERT(BVGT(");
-                for (int i = 0; i < 4; i++) {
+
+                for (int i = 0; i < 4; i++) {	
                     fprintf(fp, "BVPLUS(1, 0bin0");
                     for (int j = 0; j < SIZE; j++) {
                         fprintf(fp, ", (d_%d & 0bin%d)", 4 * j + m, matrixDegree3[j][i]);
