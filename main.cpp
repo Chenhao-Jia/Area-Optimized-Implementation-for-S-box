@@ -465,6 +465,41 @@ int main(){
             fprintf(fp,"\n");
 
 
+            //Constraining of 2-input gates' depth
+            int AD_start = 0; 
+            int AD_num = bitnum; 
+            for (int i = 0; i < k; i++) {
+                for (int m = AD_start; m < AD_start + AD_num -1; m++){
+                    for(int n = m + 1; n < AD_start + AD_num; n++){
+                        //fprintf(fp, "ASSERT(((a_%d | a_%d) @ (a_%d | a_%d) = 0bin11) => (IF(BVGE(Dt_%d, Dt_%d))THEN(Dt_%d = BVPLUS(4, Dt_%d, 0bin0001))ELSE(Dt_%d = BVPLUS(4, Dt_%d, 0bin0001))ENDIF) );\n", m, m + AD_num, n, n + AD_num, m - AD_start - bitnum, n - AD_start - bitnum, i, m - AD_start - bitnum, i, n - AD_start - bitnum);
+                        fprintf(fp, "ASSERT( (BVGE(b_%d@b_%d@b_%d@b_%d@b_%d@b_%d@b_%d, 0bin0000100) AND BVLE(b_%d@b_%d@b_%d@b_%d@b_%d@b_%d@b_%d, 0bin0001111)) => (a_%d|a_%d|a_%d)@(a_%d|a_%d|a_%d) = 0bin11) => (IF (BVGE(Dt_%d, Dt_%d)THEN(Dt_%d = BVPLUS(4, Dt_%d, 0bin0001)) ELSE(Dt_%d = BVPLUS(4, Dt_%d, 0bin0001)) ) );\n", 7*i,7*i+1,7*i+2,7*i+3,7*i+4,7*i+5,7*i+6, 7*i,7*i+1,7*i+2,7*i+3,7*i+4,7*i+5,7*i+6, m, m+AD_num, m+(2*AD_num), n, n+AD_num, n+(2*AD_num), m,n, i+bitnum,m, i+bitnum,n);
+                    }
+                }
+
+                AD_start += (3 * AD_num);
+                AD_num++;
+
+            }
+
+            //Constraining of 3-input gates' depth
+            AD_start = 0;
+            AD_num = bitnum;
+            for (int i = 0; i < k; i++) {
+                for (int m = AD_start; m < AD_start + AD_num -2; m++){
+                    for(int n = m + 1; n < AD_start + AD_num -1; n++){
+                        for(int j = n + 1; j < AD_start + AD_num; j++){
+                            fprintf(fp, "ASSERT( (BVGE(b_%d@b_%d@b_%d@b_%d@b_%d@b_%d@b_%d, 0bin0010000) AND BVLE(b_%d@b_%d@b_%d@b_%d@b_%d@b_%d@b_%d, 0bin1111111)) => ((a_%d|a_%d|a_%d)@(a_%d|a_%d|a_%d)@(a_%d|a_%d|a_%d) = 0bin111) => ( IF(BVGE(Dt_%d, Dt_%d))THEN( IF(BVGE(Dt_%d, Dt_%d))THEN(Dt_%d = BVPLUS(4, Dt_%d, 0bin0001))ELSE( IF(BVGE(Dt_%d, Dt_%d))THEN(Dt_%d = BVPLUS(4, Dt_%d, 0bin0001))ELSE(Dt_%d = BVPLUS(4, Dt_%d, 0bin0001)) ) ) ELSE( IF(BVGE(Dt_%d, Dt_%d))THEN(Dt_%d = BVPLUS(4, Dt_%d, 0bin0001))ELSE(Dt_%d = BVPLUS(4, Dt_%d, 0bin0001)) ) ) );\n",
+                                    7*i,7*i+1,7*i+2,7*i+3,7*i+4,7*i+5,7*i+6, 7*i,7*i+1,7*i+2,7*i+3,7*i+4,7*i+5,7*i+6, m, m+AD_num, m+(2*AD_num), n, n+AD_num, n+(2*AD_num), j, j+AD_num, j+(2*AD_num), m,n,n,j, i+bitnum,m, m,j,i+bitnum,m, i+bitnum,j, n,j,i+bitnum,n, i+bitnum,j);
+                        }
+                    }
+                }
+
+                AD_start += (3 * AD_num);
+                AD_num++;
+
+            }
+
+
 
 
             int countQ = 0, countT = 0, countY = 0, countX = 0;
