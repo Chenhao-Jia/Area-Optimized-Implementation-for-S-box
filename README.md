@@ -13,3 +13,5 @@ g++ main.cpp
 ./a.out
 stp Model.cvc
 ```
+
+To help users better understand our model, we have provided two examples of STP models generated using the script file: the `KECCAK_17GE.cvc` file and the `SKINNY128_26.67GE.cvc` file. By running the commands `stp KECCAK_17GE.cvc` and `stp SKINNY128_26.67GE.cvc`, users can obtain the area optimization results for the KECCAK S-box and the SKINNY128 S-box, respectively.
