@@ -614,7 +614,7 @@ int main(){
             const int COLS_Degree3 = 4;
             const int COLS_Degree2 = 6;
 
-            //g_u(x) for cubic terms
+            //g_u(x) for cubic terms of 4-bit Boolean function
             int matrixDegree3[ROWS][COLS_Degree3] = {
                     {1,1,1,1},
                     {0,1,1,1},
@@ -634,7 +634,7 @@ int main(){
                     {0,0,0,0}
             };
 
-            //g_u(x) for quadratic terms
+            //g_u(x) for quadratic terms of 4-bit Boolean function
             int matrixDegree2[ROWS][COLS_Degree2] = {
                     {1,1,1,1,1,1},
                     {0,0,1,0,1,1},
